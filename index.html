@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Comunica</title>
+    <style>
+        body {
+            margin: 0; /* Remova a margem padrão do body */
+            padding: 0;
+        }
+
+        .topnav {
+            background: rgb(172, 172, 172);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            height: 50px;
+            margin: 0; /* Remova a margem do topnav */
+        }
+
+        .logo-escola img {
+            width: 80px;
+        }
+
+        .menu-top {
+            position: relative;
+        }
+
+        .menu-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .menu-dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .menu-top:hover .menu-dropdown {
+            display: block;
+        }
+
+        .menu-dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        /* Estilo para o ícone de menu */
+        .menu-icon {
+            width: 30px; /* Defina o tamanho do ícone conforme necessário */
+        }
+
+        /* Estilo para o slideshow */
+        .slides-novidades {
+            width: 80%; /* Defina a largura máxima dos slides */
+            max-width: 800px; /* Defina a largura máxima dos slides */
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y;
+            margin: 0 auto; /* Centraliza o slideshow na página */
+            text-align: center; /* Centraliza os elementos horizontalmente */
+        }
+
+        .slide-img { 
+            width: 100%; /* Ajusta a largura das imagens para preencher o contêiner */
+            height: auto;
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+
+        .center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topnav">
+            <div class="logo-escola">
+                <img src="./src/css/img/logo-top.png" alt="Logo Escola">
+            </div>
+            <div class="menu-top">
+                <button onclick="toggleDropdown()">
+                    <img src="./src/css/img/menu-top.png" alt="Menu" class="menu-icon">
+                </button>
+                <div class="menu-dropdown" id="dropdown">
+                    <a href="#">Novidades</a>
+                    <a href="#">Ensino Médio</a>
+                    <a href="#">Ensino Fundamental</a>
+                    <a href="#">Calendário</a>
+                    <a href="#">Contato</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function toggleDropdown() {
+                var dropdown = document.getElementById("dropdown");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    dropdown.style.display = "block";
+                }
+            }
+        </script>
+ <div class="center">
+        <div class="slides-novidades" ontouchstart="startTouch(event)" ontouchmove="moveTouch(event)" ontouchend="endTouch()">
+            <h2>Bem-vindos ao novo App!</h2>
+           
+            <img class="slide-img active" src="./src/css/img/slide1.png" alt="Slide 1">
+            <img class="slide-img" src="./src/css/img/slide2.png" alt="Slide 2">
+            <img class="slide-img" src="./src/css/img/slide3.png" alt="Slide 3">
+        </div>
+        </div>
+
+        <script>
+            var touchStartX = 0;
+            var touchEndX = 0;
+            var slideIndex = 0;
+
+            function startTouch(event) {
+                touchStartX = event.touches[0].clientX;
+            }
+
+            function moveTouch(event) {
+                touchEndX = event.touches[0].clientX;
+            }
+
+            function endTouch() {
+                if (touchStartX - touchEndX > 50) {
+                    showNextSlide();
+                } else if (touchStartX - touchEndX < -50) {
+                    showPreviousSlide();
+                }
+            }
+
+            function showNextSlide() {
+                var slides = document.getElementsByClassName("slide-img");
+                for (var i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) {slideIndex = 1}
+                slides[slideIndex-1].style.display = "block";
+            }
+
+            function showPreviousSlide() {
+                var slides = document.getElementsByClassName("slide-img");
+                for (var i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex--;
+                if (slideIndex < 1) {slideIndex = slides.length}
+                slides[slideIndex-1].style.display = "block";
+            }
+        </script>
+
+        <div class="quad-news">
+        </div>
+
+        <div class="fundo-escola-info">
+        </div>
+    </div>
+</body>
+</html>
